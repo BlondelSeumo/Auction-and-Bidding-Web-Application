@@ -1,0 +1,4 @@
+Name,SKU,Sale_Price,Purchase_Price,Quantity,Tax,Category,Unit,Type,Description
+PC,00BG102,50000,45000,100,1,1,1,product,test demo
+TV,T0F201,45000,45000,150,1,1,2,service,test demo
+LAPTOP,L0912P,70000,65000,100,1,1,1,product,test demo

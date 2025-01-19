@@ -1,0 +1,231 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+p,
+li,
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1.5;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.row [class*="col-"] {
+    padding: 0 15px;
+}
+.d-flex{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.col-12 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 100%;
+}
+@media (min-width: 768px){
+    .col-md-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+.justify-content-between {
+    -ms-flex-pack: justify;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.align-items-center {
+    -ms-flex-align: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.mt-2{
+    margin-top: 15px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table tr th {
+    padding: 0.75rem;
+    font-size: 14px;
+}
+table tr td {
+    padding: 0.75rem;
+    font-size: 14px;
+}
+table th small {
+    display: block;
+    font-size: 12px;
+}
+.invoice-preview-main {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background: #ffff;
+    box-shadow: 0 0 10px #ddd;
+    padding: 0 10px;
+}
+.invoice-logo {
+    max-width: 200px;
+    width: 100%;
+}
+.invoice-header{
+    padding: 10px;
+}
+.invoice-header table td {
+    padding: 10px;
+}
+.text-right {
+    text-align: right;
+}
+.no-space tr td {
+    padding: 0;
+}
+.vertical-align-top td {
+    vertical-align: top;
+}
+.view-qrcode {
+    max-width: 114px;
+    height: 114px;
+    margin-left: auto;
+    margin-top: 15px;
+    background: var(--white);
+}
+.view-qrcode img {
+    width: 100%;
+    height: 100%;
+    min-width: 114px;
+}
+.invoice-body {
+    padding: 30px 0;
+}
+table.add-border tr {
+    border-top: 1px solid var(--theme-color);
+}
+tfoot tr:first-of-type {
+    border-bottom: 1px solid var(--theme-color);
+}
+.total-table tr:first-of-type td {
+    padding-top: 0;
+}
+.total-table tr:first-of-type {
+    border-top: 0;
+}
+.sub-total {
+    padding-right: 0;
+    padding-left: 0;
+}
+.border-0 {
+    border: none !important;
+}
+.invoice-summary td,
+.invoice-summary th {
+    font-size: 14px;
+    font-weight: 500;
+}
+.total-table td:last-of-type {
+    width: 146px;
+}
+.invoice-footer {
+    padding: 15px 20px;
+}
+.itm-description td {
+    padding-top: 0;
+}
+html[dir="rtl"] table tr td,
+html[dir="rtl"] table tr th {
+    text-align: right;
+}
+html[dir="rtl"] .text-right {
+    text-align: left;
+}
+html[dir="rtl"] .view-qrcode {
+    margin-left: 0;
+    margin-right: auto;
+}
+p:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+.invoice-summary p{
+    margin-bottom: 0;
+}
+.text-center{
+    text-align: center;
+}
+table.border tr td,table.border tr th {
+    border: 1px solid #ddd;
+}
+.ps-20{
+    padding-left: 20px !important;
+}
+.table-responsive {
+    display: flex;
+    overscroll-behavior-x: contain;
+    overflow-x: auto;
+}
+table {
+    overflow: hidden;
+}
+.invoice-header .tbl-head-text{
+    text-align: center;
+}
+.navbar{
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+.qrcode{
+    padding: 15px;
+    background: white;
+    width: fit-content;
+}
+.top-table td:last-child{
+    width: 50%;
+}
+.no-padding-table table tr td{
+    padding: 0.15rem;
+}
+.no-padding-table .invoice-body{
+    padding: 0;
+}
+.no-padding-table .navbar{
+    margin-bottom: 0;
+    padding: 1px 0;
+}
+.no-padding-table .table-responsive{
+    padding: 0 15px;
+}
+.tbl-qr .qrcode img{
+    max-width: 100px;
+    max-height: 100px;
+}
+.tbl-qr .qrcode .img{
+    max-width: 115px;
+    max-height: 100px;
+}
+/* @media (max-width: 575px){
+    .logo{
+        width: 100%;
+    }
+} */
