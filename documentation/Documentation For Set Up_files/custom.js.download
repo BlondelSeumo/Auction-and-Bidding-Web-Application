@@ -1,0 +1,2557 @@
+
+$(document).ready(function () {
+  responsiveMenu();
+});
+$(window).on('resize', function () {
+  responsiveMenu();
+});
+function responsiveMenu() {
+  if ($(window).width() < 768) {
+    $(".mobile-menu-button").on("click", function () {
+      $(".site-header .main-navigation").addClass("active");
+      $(".site-header .mobile-navigation").addClass("active");
+      $(".overlay").addClass("menu-active");
+      $("body").addClass("menu-no-scroll");
+      $("body").addClass("mobile-menu-overlay");
+    });
+    // mobile menu close
+    $(".menu-close-icon svg").on("click", function () {
+      $(".site-header .main-navigation").removeClass("active");
+      $(".site-header .mobile-navigation").removeClass("active");
+      $(".overlay").removeClass("menu-active");
+      $("body").removeClass("menu-no-scroll");
+      $("body").removeClass("mobile-menu-overlay");
+
+    });
+  } else {
+    $(".site-header .main-navigation").removeClass("active");
+    $(".site-header .mobile-navigation").removeClass("active");
+    $(".overlay").removeClass("menu-active");
+    $("body").removeClass("menu-no-scroll");
+    $("body").removeClass("mobile-menu-overlay");
+  }
+}
+$(document).ready(function () {
+  initHeaderSticky()
+});
+$(window).resize(function () {
+  initHeaderSticky()
+});
+$(window).scroll(function () {
+  initHeaderSticky()
+});
+function initHeaderSticky() {
+  if (jQuery(document).height() > jQuery(window).height()) {
+    if (jQuery(this).scrollTop() > 400) {
+      jQuery('#go-top-btn').addClass("fixed");
+    } else {
+      jQuery('#go-top-btn').removeClass("fixed");
+    }
+  }
+}
+/*  jQuery Nice Select - v1.0
+    https://github.com/hernansartorio/jquery-nice-select
+    Made by HernÃƒÂ¡n Sartorio  */
+!(function (e) {
+  e.fn.niceSelect = function (t) {
+    function s(t) {
+      t.after(
+        e("<div></div>")
+          .addClass("nice-select")
+          .addClass(t.attr("class") || "")
+          .addClass(t.attr("disabled") ? "disabled" : "")
+          .attr("tabindex", t.attr("disabled") ? null : "0")
+          .html('<span class="current"></span><ul class="list"></ul>')
+      );
+      var s = t.next(),
+        n = t.find("option"),
+        i = t.find("option:selected");
+      s.find(".current").html(i.data("display") || i.text()),
+        n.each(function (t) {
+          var n = e(this),
+            i = n.data("display");
+          s.find("ul").append(
+            e("<li></li>")
+              .attr("data-value", n.val())
+              .attr("data-display", i || null)
+              .addClass(
+                "option" +
+                (n.is(":selected") ? " selected" : "") +
+                (n.is(":disabled") ? " disabled" : "")
+              )
+              .html(n.text())
+          );
+        });
+    }
+    if ("string" == typeof t)
+      return (
+        "update" == t
+          ? this.each(function () {
+            var t = e(this),
+              n = e(this).next(".nice-select"),
+              i = n.hasClass("open");
+            n.length && (n.remove(), s(t), i && t.next().trigger("click"));
+          })
+          : "destroy" == t
+            ? (this.each(function () {
+              var t = e(this),
+                s = e(this).next(".nice-select");
+              s.length && (s.remove(), t.css("display", ""));
+            }),
+              0 == e(".nice-select").length && e(document).off(".nice_select"))
+            : console.log('Method "' + t + '" does not exist.'),
+        this
+      );
+    this.hide(),
+      this.each(function () {
+        var t = e(this);
+        t.next().hasClass("nice-select") || s(t);
+      }),
+      e(document).off(".nice_select"),
+      e(document).on("click.nice_select", ".nice-select", function (t) {
+        var s = e(this);
+        e(".nice-select").not(s).removeClass("open"),
+          s.toggleClass("open"),
+          s.hasClass("open")
+            ? (s.find(".option"),
+              s.find(".focus").removeClass("focus"),
+              s.find(".selected").addClass("focus"))
+            : s.focus();
+      }),
+      e(document).on("click.nice_select", function (t) {
+        0 === e(t.target).closest(".nice-select").length &&
+          e(".nice-select").removeClass("open").find(".option");
+      }),
+      e(document).on(
+        "click.nice_select",
+        ".nice-select .option:not(.disabled)",
+        function (t) {
+          var s = e(this),
+            n = s.closest(".nice-select");
+          n.find(".selected").removeClass("selected"), s.addClass("selected");
+          var i = s.data("display") || s.text();
+          n.find(".current").text(i),
+            n.prev("select").val(s.data("value")).trigger("change");
+        }
+      ),
+      e(document).on("keydown.nice_select", ".nice-select", function (t) {
+        var s = e(this),
+          n = e(s.find(".focus") || s.find(".list .option.selected"));
+        if (32 == t.keyCode || 13 == t.keyCode)
+          return (
+            s.hasClass("open") ? n.trigger("click") : s.trigger("click"), !1
+          );
+        if (40 == t.keyCode) {
+          if (s.hasClass("open")) {
+            var i = n.nextAll(".option:not(.disabled)").first();
+            i.length > 0 &&
+              (s.find(".focus").removeClass("focus"), i.addClass("focus"));
+          } else s.trigger("click");
+          return !1;
+        }
+        if (38 == t.keyCode) {
+          if (s.hasClass("open")) {
+            var l = n.prevAll(".option:not(.disabled)").first();
+            l.length > 0 &&
+              (s.find(".focus").removeClass("focus"), l.addClass("focus"));
+          } else s.trigger("click");
+          return !1;
+        }
+        if (27 == t.keyCode) s.hasClass("open") && s.trigger("click");
+        else if (9 == t.keyCode && s.hasClass("open")) return !1;
+      });
+    var n = document.createElement("a").style;
+    return (
+      (n.cssText = "pointer-events:auto"),
+      "auto" !== n.pointerEvents && e("html").addClass("no-csspointerevents"),
+      this
+    );
+  };
+})(jQuery);
+
+$(document).ready(function () {
+  /********* On scroll heder Sticky *********/
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      document.getElementById("go-top-btn").style.bottom = "80px";
+    } else {
+      document.getElementById("go-top-btn").style.bottom = "-200px";
+    }
+    prevScrollpos = currentScrollPos;
+  }
+  $('.sp-popup-click').on('click', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+
+    // Retrieve the 'data-url' attribute value
+    var data_img = $(this).attr('data-img');
+    var demoUrl = $(this).attr('data-url'); // Retrieve the demo URL
+
+    // Set the image source in the popup
+    $('#model-one .pop-up-img img').attr('src', data_img);
+    $('#model-one .sp-demo-btn').attr('src', data_img);
+    var demoUrl = $(this).attr('data-url'); // Retrieve the demo URL
+
+    // Open the popup
+    $("#model-one").addClass('model-open');
+    $('#model-one .pop-up-content-inner a.sp-demo-btn').attr('href', demoUrl);
+
+    // Close the popup when close button or overlay is clicked
+    $('#model-one .close-btn, #model-one .bg-overlay').on('click', function () {
+      $("#model-one").removeClass('model-open');
+    });
+  });
+  //------   shopify preview page js ------///
+
+  /** details-slider **/
+  var swiper = new Swiper(".details-slider ", {
+    slidesPerView: 3,
+    //   loop: true,
+    speed: 800,
+    spaceBetween: 15,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+
+    },
+
+    breakpoints: {
+      992: {
+        slidesPerView: 3,
+      },
+      576: {
+        slidesPerView: 2,
+      },
+      0: {
+        slidesPerView: 1,
+      },
+    },
+  });
+
+  /**theme-layout-slider **/
+  var swiper = new Swiper(".theme-layout-slider ", {
+    slidesPerView: 3,
+    speed: 800,
+    spaceBetween: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      992: {
+        slidesPerView: 3,
+      },
+      576: {
+        slidesPerView: 2,
+      },
+      0: {
+        slidesPerView: 1,
+      },
+    },
+  });
+
+  /** Trending Products slider **/
+  var swiper = new Swiper(".theme-feacher-slider", {
+    spaceBetween: 20,
+    slidesPerColumn: 2,
+    slidesPerView: 3,
+    speed: 800,
+    grid: {
+      rows: 2,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      992: {
+        slidesPerView: 3,
+        grid: {
+          rows: 2,
+        },
+      },
+      576: {
+        slidesPerView: 2,
+        grid: {
+          rows: 2,
+        },
+      },
+      0: {
+        slidesPerView: 1,
+        grid: {
+          rows: 2,
+        },
+      },
+    },
+  });
+
+  /** wd-layout-slider **/
+  var swiper = new Swiper(".wd-layout-slider ", {
+    slidesPerView: 4,
+    speed: 800,
+    spaceBetween: 15,
+    loop: false,
+    navigation: {
+      nextEl: ".wd-layout-arrow.swiper-button-next",
+      prevEl: ".wd-layout-arrow.swiper-button-prev",
+    },
+    breakpoints: {
+      1200: {
+        slidesPerView: 4,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      576: {
+        slidesPerView: 2,
+      },
+      0: {
+        slidesPerView: 1,
+      },
+    },
+  });
+
+  /**theme-value-slider **/
+  var swiper = new Swiper(".theme-value-slider ", {
+    slidesPerView: 4,
+    speed: 800,
+    spaceBetween: 15,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      1200: {
+        slidesPerView: 4,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      576: {
+        slidesPerView: 2,
+      },
+      0: {
+        slidesPerView: 1,
+      },
+    },
+
+  });
+
+  /**ask-theme-slider **/
+  var swiper = new Swiper(".ask-theme-slider ", {
+    slidesPerView: 3,
+    speed: 800,
+    spaceBetween: 15,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      992: {
+        slidesPerView: 3,
+      },
+      576: {
+        slidesPerView: 2,
+      },
+      0: {
+        slidesPerView: 1,
+      },
+    },
+  });
+
+
+  var outstandingSwiper = null;
+  var outstandingIsSwiperInitialized = false;
+  var bookinggoSwiper = null;
+  var bookinggoIsSwiperInitialized = false;
+  var bookinggoTopSellingSwiper = null;
+  var bookinggoTopSellingIsSwiperInitialized = false;
+  function initSwiper(selector, nextBtn, prevBtn) {
+    return new Swiper(selector, {
+      slidesPerView: 3,
+      speed: 800,
+      spaceBetween: 20,
+      loop: true,
+      navigation: {
+        nextEl: nextBtn,
+        prevEl: prevBtn,
+      },
+      breakpoints: {
+        576: {
+          slidesPerView: 2,
+        },
+        0: {
+          slidesPerView: 1,
+        },
+      },
+    });
+  }
+  function destroySwiper(swiperInstance) {
+    if (swiperInstance !== null) {
+      swiperInstance.destroy();
+      swiperInstance = null;
+    }
+  }
+  function handleSwiper(selector, nextBtn, prevBtn, isInitialized, swiperInstance) {
+    if (jQuery(window).width() < 768) {
+      if (!isInitialized) {
+        swiperInstance = initSwiper(selector, nextBtn, prevBtn);
+        isInitialized = true;
+      }
+    } else {
+      if (isInitialized) {
+        destroySwiper(swiperInstance);
+        isInitialized = false;
+      }
+    }
+    return { isInitialized, swiperInstance };
+  }
+  function handleResize(selector, nextBtn, prevBtn, isInitialized, swiperInstance) {
+    $(window).resize(function () {
+      if ($('.swiper').hasClass(selector.replace('.', ''))) {
+        const result = handleSwiper(selector, nextBtn, prevBtn, isInitialized, swiperInstance);
+        isInitialized = result.isInitialized;
+        swiperInstance = result.swiperInstance;
+      }
+    }).trigger('resize');
+  }
+  $(document).ready(function () {
+    handleResize(".bookinggo-top-selling", ".bookinggo-top-selling-arrow.swiper-button-next", ".bookinggo-top-selling-arrow.swiper-button-prev", bookinggoTopSellingIsSwiperInitialized, bookinggoTopSellingSwiper);
+    handleResize(".outstanding-features-row", ".outstanding-features-arrow.swiper-button-next", ".outstanding-features-arrow.swiper-button-prev", outstandingIsSwiperInitialized, outstandingSwiper);
+    handleResize(".bookinggo-features-row", ".bookinggo-features-arrow.swiper-button-next", ".bookinggo-features-arrow.swiper-button-prev", bookinggoIsSwiperInitialized, bookinggoSwiper);
+  });
+
+  // awaits-scroll-tab-wrapper
+  $('.awaits-main-slider').slick({
+    infinite: true,
+    dots: false,
+    arrows: true,
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    slidesToShow: 1,
+    autoplay: true,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+
+  $(".feature-text-slider .slick-carousel").slick({
+    speed: 7000,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: true,
+    swipeToSlide: true,
+    centerMode: true,
+    focusOnSelect: true,
+    arrows: false,
+  });
+  $('.ultimate-demos-slider .slick-carousel').slick({
+    // Slick Slider options go here
+    infinite: true,
+    dots: false,
+    arrows: true,
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    slidesToShow: 2,
+    autoplay: true,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    // Add more options as needed
+  });
+
+  $('.protheme-demo-slider .slick-carousel').slick({
+    // Slick Slider options go here
+    infinite: true,
+    dots: false,
+    arrows: true,
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    slidesToShow: 2,
+    autoplay: false,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    // Add more options as needed
+  });
+  $('.pages-category-slider .slick-carousel').slick({
+    // Slick Slider options go here
+    infinite: true,
+    dots: false,
+    arrows: true,
+    slidesToShow: 2,
+    autoplay: true,
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    // Add more options as needed
+  });
+
+  $('.theme-features-slider .slick-carousel').slick({
+    // Slick Slider options go here
+    infinite: true,
+    dots: false,
+    autoplay: true,
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  $('.header-style-slider .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: true,
+    infinite: false,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+  });
+  $('.theme-gallery-slider .slick-carousel').slick({
+    speed: 5000,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    infinite: true,
+    swipeToSlide: true,
+    centerMode: true,
+    focusOnSelect: true,
+    arrows: false,
+    responsive: [
+
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  $('.customization-slider-one .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: false,
+    speed: 1000,
+    infinite: true,
+    autoplay: true,
+    arrows: true,
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    asNavFor:
+      ".customization-slider-two .slick-carousel, .customization-slider-three .slick-carousel, .customization-slider-four .slick-carousel,.customization-slider-five .slick-carousel",
+  });
+
+  $('.customization-slider-two .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: false,
+    speed: 1000,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    asNavFor:
+      ".customization-slider-one .slick-carousel, .customization-slider-three .slick-carousel, .customization-slider-four .slick-carousel,.customization-slider-five .slick-carousel",
+  });
+  $('.customization-slider-three .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: false,
+    speed: 1000,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    asNavFor:
+      ".customization-slider-one .slick-carousel, .customization-slider-two .slick-carousel, .customization-slider-four .slick-carousel,.customization-slider-five .slick-carousel",
+  });
+  $('.customization-slider-four .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: false,
+    speed: 1000,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    asNavFor:
+      ".customization-slider-one .slick-carousel, .customization-slider-three .slick-carousel, .customization-slider-three .slick-carousel,.customization-slider-five .slick-carousel",
+  });
+  $('.customization-slider-five .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: false,
+    speed: 1000,
+    infinite: true,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    asNavFor:
+      ".customization-slider-one .slick-carousel, .customization-slider-three .slick-carousel, .customization-slider-four .slick-carousel,.customization-slider-four .slick-carousel",
+  });
+  $('.footer-style-slider .slick-carousel').slick({
+    // Slick Slider options go here
+    dots: true,
+    infinite: false,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+  });
+  $('.dash-saas-slider').slick({
+    // Slick Slider options go here
+    infinite: true,
+    prevArrow:
+      '<button class="slide-arrow slick-prev"><svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.398117 7.2802C0.00759318 7.67072 0.00759313 8.30389 0.398117 8.69441L6.76208 15.0584C7.1526 15.4489 7.78577 15.4489 8.17629 15.0584C8.56682 14.6678 8.56682 14.0347 8.17629 13.6442L2.51944 7.9873L8.17629 2.33045C8.56682 1.93992 8.56682 1.30676 8.17629 0.916235C7.78577 0.525711 7.1526 0.525711 6.76208 0.916235L0.398117 7.2802ZM24.1052 6.9873L1.10522 6.9873L1.10522 8.9873L24.1052 8.9873L24.1052 6.9873Z" fill="#022332"/></svg></button>',
+    nextArrow:
+      '<button class="slide-arrow slick-next"><svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24.6019 8.70808C24.9924 8.31756 24.9924 7.68439 24.6019 7.29387L18.2379 0.929909C17.8474 0.539384 17.2142 0.539384 16.8237 0.929909C16.4332 1.32043 16.4332 1.9536 16.8237 2.34412L22.4806 8.00098L16.8237 13.6578C16.4332 14.0484 16.4332 14.6815 16.8237 15.072C17.2142 15.4626 17.8474 15.4626 18.2379 15.072L24.6019 8.70808ZM0.894775 9.00098H23.8948V7.00098H0.894775V9.00098Z" fill="#022332"/></svg></button>',
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    // Add more options as needed
+  });
+  $(".installation-slider-div .slick-carousel").slick({
+    speed: 5000,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    slidesToShow: 8,
+    slidesToScroll: 1,
+    infinite: true,
+    swipeToSlide: true,
+    centerMode: true,
+    focusOnSelect: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 6,
+        }
+      },
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+    ]
+  });
+  $(".dash-application-slider").slick({
+    infinite: true,
+    dots: false,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+    ]
+  });
+  // dash-features-slider js
+  $('.features-content-slider .slick-carousel').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    dots: true,
+    centerMode: true,
+    infinite: true,
+    autoplay: true,
+    fade: true,
+    asNavFor: '.dash-features-slider .slick-carousel'
+  });
+  $('.dash-features-slider .slick-carousel').slick({
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    centerMode: true,
+    infinite: true,
+    autoplay: true,
+    asNavFor: '.features-content-slider .slick-carousel',
+    dots: false,
+    arrows: false,
+    loop: true,
+    focusOnSelect: true,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 6,
+        }
+      },
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 300,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+    ],
+  });
+
+
+  $(".cart_coomingsoon").click(function (e) {
+    show_toastr('Error', 'We will release soon!!!', 'error');
+  });
+  function show_toastr(title, message, type) {
+
+    var o, i;
+    var icon = '';
+    var cls = '';
+    if (type == 'success') {
+      title = 'well done!';
+      icon = 'fa-solid fa-check';
+      cls = 'success';
+    } else {
+      title = 'oh snap!';
+      icon = 'fa-solid fa-xmark';
+      cls = 'danger';
+    }
+    $.notify({ icon: icon, title: " " + title, message: message, url: "" }, {
+      element: "body",
+      type: cls,
+      allow_dismiss: !0,
+      placement: { from: 'top', align: 'right' },
+      offset: { x: 15, y: 15 },
+      spacing: 10,
+      z_index: 1080,
+      delay: 2500,
+      timer: 2000,
+      url_target: "_blank",
+      mouse_over: !1,
+      animate: { enter: o, exit: i },
+      template: '<div class="alert alert-{0} alert-icon alert-group alert-notify" data-notify="container" role="alert"><div class="alert-group-prepend alert-content"><span class="alert-group-icon"><i data-notify="icon"></i></span></div><div class="alert-content"><strong data-notify="title">{1}</strong><div data-notify="message">{2}</div></div><button type="button" class="close" data-notify="dismiss" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+    });
+  }
+  // /******  Nice Select  ******/
+  $("select:not(.state_select, .country_to_state )").niceSelect();
+
+
+  /////////////////// On scroll heder Sticky ///////////////////
+  $(window).scroll(function () {
+    var scroll = $(window).scrollTop();
+    if (scroll >= 50) {
+      $("header").addClass("head-sticky");
+    } else {
+      $("header").removeClass("head-sticky");
+    }
+  });
+
+  //Scroll event
+  $(window).scroll(function () {
+    var scrolled = $(window).scrollTop();
+    if (scrolled > 200) $('#go-top-btn').fadeIn('slow');
+    if (scrolled < 200) $('#go-top-btn').fadeOut('slow');
+  });
+
+  //Click event
+  $('#go-top-btn').click(function () {
+    $("html, body").animate({ scrollTop: "0" }, 500);
+  });
+
+  $(".acnav-label").click(function () {
+    var label = $(this);
+    var parent = label.parent(".has-children");
+    var list = label.siblings(".acnav-list");
+    if (parent.hasClass("is-open")) {
+      list.slideUp("fast");
+      parent.removeClass("is-open");
+    } else {
+      list.slideDown("fast");
+      parent.addClass("is-open");
+    }
+  });
+
+  // video
+  $("#video-play-btn").click(function () {
+    var video = $("#erpgo-video").get(0);
+    if (video.paused) {
+      video.play();
+      $("#video-play-btn").css("opacity", 0);
+    } else {
+      video.pause();
+      $("#video-play-btn").css("opacity", 1);
+    }
+  });
+
+  // add remove active
+  $(".category-list li a ").on("click", function () {
+    $(".category-list li a").removeClass("active");
+    $(this).addClass("active");
+  });
+
+  // accodian
+  $(".set > a").on("click", function () {
+    if ($(this).hasClass("active")) {
+      $(this).removeClass("active");
+      $(this).siblings(".content").slideUp(200);
+    } else {
+      $(".set > a").removeClass("active");
+      $(this).addClass("active");
+      $(".content").slideUp(200);
+      $(this).siblings(".content").slideDown(200);
+    }
+  });
+
+  // pop up
+  $(".add-cart-btn").on("click", function () {
+    // $(".add-cart-popup").addClass("active");
+    // $(".popup-overlay").addClass("active");
+    $("body").addClass("no-scroll");
+  });
+
+  $(document).on(
+    "click",
+    ".keep-browsing-btn , .popup-overlay , .add-cart-popup .close , .popup-modal-content .close,.review_rating_workdo .close, .vcardgo-popup .close",
+    function (e) {
+      // $(".keep-browsing-btn , .popup-overlay , .add-cart-popup .close , .popup-modal-content .close ").on("click", function () {
+      $(".add-cart-popup").removeClass("active");
+      $(".vcardgo-popup").removeClass("active");
+      $(".review_rating_workdo").removeClass("active");
+      $(".popup-overlay").removeClass("active");
+      $("body").removeClass("no-scroll");
+      $(".popup-modal-content").removeClass("active");
+      $(".vcardgo-popup").removeClass("active");
+    }
+  );
+  // shopify
+  $(".shopify-link, .shopify-popup-btn").on("click", function () {
+    $(".popup-modal-content").addClass("active");
+    $(".popup-overlay").addClass("active");
+    $("body").addClass("no-scroll");
+  });
+
+  // mobile menu open
+  // mobile menu open
+
+
+  // mobile nav droppdown
+  $("#menu-mobile-menu > li > a").click(function () {
+    $(this).toggleClass("open-menu");
+    // $(this).next(".sub-menu").slideToggle();
+    $(this).next(".sub-menu").toggleClass("active");
+  });
+
+  // Tab js
+  $("ul.tabs li").click(function () {
+    var $this = $(this);
+    var $theTab = $(this).attr("data-tab");
+    if ($this.hasClass("active")) {
+    } else {
+      $this
+        .closest(".tabs-wrapper")
+        .find("ul.tabs li, .tabs-container .tab-content")
+        .removeClass("active");
+      $(
+        '.tabs-container .tab-content[id="' +
+        $theTab +
+        '"], ul.tabs li[data-tab="' +
+        $theTab +
+        "]"
+      ).addClass("active");
+    }
+    // $('.details-slider' ).slick('refresh');
+    // $('.theme-layout-slider').slick('refresh');
+    // $('.theme-feacher-slider').slick('refresh');
+    // $('.wd-layout-slider').slick('refresh');
+    $("ul.tabs li").removeClass("active");
+    $(this).addClass("active");
+  });
+
+  // ERPGo
+  var $status_review = $(".reveiw-pagingInfo");
+  var $slickElement_review = $(".review-slider");
+
+  $slickElement_review.on(
+    "init reInit afterChange",
+    function (event, slick, currentSlide, nextSlide) {
+      var i = (currentSlide ? currentSlide : 0) + 1;
+      $status_review.text("Testimonials " + i + " of " + slick.slideCount);
+    }
+  );
+  $($slickElement_review).slick({
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: false,
+    prevArrow: $(".review-left-arrow"),
+    nextArrow: $(".review-right-arrow"),
+    responsive: [
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 550,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  });
+  $(".ecom-single-slider").slick({
+    dots: true,
+    infinite: false,
+    loop: false,
+    draggable: false,
+    autoplay: false,
+    touchThreshold: false,
+    accesibility: false,
+    swipe: false,
+    touchMove: false,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: false,
+  });
+  // Slick lightbox
+  if ($(".lightbox").length > 0) {
+    $(".lightbox").slickLightbox({
+      itemSelector: "a.open-lightbox",
+      caption: false,
+      prevArrow:
+        '<button class="slide-arrow slick-prev"><svg viewBox="0 0 10 5"><path d="M2.37755e-08 2.57132C-3.38931e-06 2.7911 0.178166 2.96928 0.397953 2.96928L8.17233 2.9694L7.23718 3.87785C7.07954 4.031 7.07589 4.28295 7.22903 4.44059C7.38218 4.59824 7.63413 4.60189 7.79177 4.44874L9.43039 2.85691C9.50753 2.78197 9.55105 2.679 9.55105 2.57146C9.55105 2.46392 9.50753 2.36095 9.43039 2.28602L7.79177 0.69418C7.63413 0.541034 7.38218 0.544682 7.22903 0.702329C7.07589 0.859976 7.07954 1.11192 7.23718 1.26507L8.1723 2.17349L0.397965 2.17336C0.178179 2.17336 3.46059e-06 2.35153 2.37755e-08 2.57132Z"></path></svg></button>',
+      nextArrow:
+        '<button class="slide-arrow slick-next"><svg viewBox="0 0 10 5"><path d="M2.37755e-08 2.57132C-3.38931e-06 2.7911 0.178166 2.96928 0.397953 2.96928L8.17233 2.9694L7.23718 3.87785C7.07954 4.031 7.07589 4.28295 7.22903 4.44059C7.38218 4.59824 7.63413 4.60189 7.79177 4.44874L9.43039 2.85691C9.50753 2.78197 9.55105 2.679 9.55105 2.57146C9.55105 2.46392 9.50753 2.36095 9.43039 2.28602L7.79177 0.69418C7.63413 0.541034 7.38218 0.544682 7.22903 0.702329C7.07589 0.859976 7.07954 1.11192 7.23718 1.26507L8.1723 2.17349L0.397965 2.17336C0.178179 2.17336 3.46059e-06 2.35153 2.37755e-08 2.57132Z"></path></svg></button>',
+      navigateByKeyboard: true,
+      layouts: {
+        closeButton:
+          '<button class="close"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none"><path d="M27.7618 25.0008L49.4275 3.33503C50.1903 2.57224 50.1903 1.33552 49.4275 0.572826C48.6647 -0.189868 47.428 -0.189965 46.6653 0.572826L24.9995 22.2386L3.33381 0.572826C2.57102 -0.189965 1.3343 -0.189965 0.571605 0.572826C-0.191089 1.33562 -0.191186 2.57233 0.571605 3.33503L22.2373 25.0007L0.571605 46.6665C-0.191186 47.4293 -0.191186 48.666 0.571605 49.4287C0.952952 49.81 1.45285 50.0007 1.95275 50.0007C2.45266 50.0007 2.95246 49.81 3.3339 49.4287L24.9995 27.763L46.6652 49.4287C47.0465 49.81 47.5464 50.0007 48.0463 50.0007C48.5462 50.0007 49.046 49.81 49.4275 49.4287C50.1903 48.6659 50.1903 47.4292 49.4275 46.6665L27.7618 25.0008Z" fill="white"></path></svg></button>',
+      },
+    });
+  }
+  // latest desh slider
+  $(".dash-gallery-slider").slick({
+    speed: 1000,
+    autoplay: false,
+    autoplaySpeed: 0,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: true,
+    prevArrow:
+      '<button class="slide-arrow slick-prev"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="15" viewBox="0 0 45 15" fill="none"><path d="M44.4067 8.2513C44.7972 7.86077 44.7972 7.22761 44.4067 6.83708L38.0428 0.473122C37.6522 0.0825973 37.0191 0.0825973 36.6285 0.473122C36.238 0.863646 36.238 1.49681 36.6285 1.88734L42.2854 7.54419L36.6285 13.201C36.238 13.5916 36.238 14.2247 36.6285 14.6153C37.0191 15.0058 37.6522 15.0058 38.0428 14.6153L44.4067 8.2513ZM0.98938 8.54419L43.6996 8.54419V6.54419L0.98938 6.54419L0.98938 8.54419Z" fill="#013D29"/></svg></button>',
+    nextArrow:
+      '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="15" viewBox="0 0 45 15" fill="none"><path d="M44.4067 8.2513C44.7972 7.86077 44.7972 7.22761 44.4067 6.83708L38.0428 0.473122C37.6522 0.0825973 37.0191 0.0825973 36.6285 0.473122C36.238 0.863646 36.238 1.49681 36.6285 1.88734L42.2854 7.54419L36.6285 13.201C36.238 13.5916 36.238 14.2247 36.6285 14.6153C37.0191 15.0058 37.6522 15.0058 38.0428 14.6153L44.4067 8.2513ZM0.98938 8.54419L43.6996 8.54419V6.54419L0.98938 6.54419L0.98938 8.54419Z" fill="#013D29"/></svg></button>',
+    swipeToSlide: true,
+    arrows: true,
+  });
+
+
+  $('.bookinggo-sass-slider').slick({
+    // Slick Slider options go here
+    infinite: true,
+    prevArrow:
+      '<button class="slide-arrow slick-prev"><svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.398117 7.2802C0.00759318 7.67072 0.00759313 8.30389 0.398117 8.69441L6.76208 15.0584C7.1526 15.4489 7.78577 15.4489 8.17629 15.0584C8.56682 14.6678 8.56682 14.0347 8.17629 13.6442L2.51944 7.9873L8.17629 2.33045C8.56682 1.93992 8.56682 1.30676 8.17629 0.916235C7.78577 0.525711 7.1526 0.525711 6.76208 0.916235L0.398117 7.2802ZM24.1052 6.9873L1.10522 6.9873L1.10522 8.9873L24.1052 8.9873L24.1052 6.9873Z" fill="#022332"/></svg></button>',
+    nextArrow:
+      '<button class="slide-arrow slick-next"><svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24.6019 8.70808C24.9924 8.31756 24.9924 7.68439 24.6019 7.29387L18.2379 0.929909C17.8474 0.539384 17.2142 0.539384 16.8237 0.929909C16.4332 1.32043 16.4332 1.9536 16.8237 2.34412L22.4806 8.00098L16.8237 13.6578C16.4332 14.0484 16.4332 14.6815 16.8237 15.072C17.2142 15.4626 17.8474 15.4626 18.2379 15.072L24.6019 8.70808ZM0.894775 9.00098H23.8948V7.00098H0.894775V9.00098Z" fill="#022332"/></svg></button>',
+    swipeToSlide: true,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    // Add more options as needed
+  });
+  //  // latest desh slider
+  //  $(".dash-gallery-slider").slick({
+  //   speed: 1000,
+  //   autoplay: false,
+  //   autoplaySpeed: 0,
+  //   slidesToShow: 3,
+  //   slidesToScroll: 1,
+  //   infinite: true,
+  //   swipeToSlide: true,
+  //   arrows: true,
+  //   responsive: [
+
+  //     {
+  //       breakpoint: 1400,
+  //       settings: {
+  //         slidesToShow: 3,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 1200,
+  //       settings: {
+  //         slidesToShow: 3,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 767,
+  //       settings: {
+  //         slidesToShow: 2,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 575,
+  //       settings: {
+  //         slidesToShow: 1,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 400,
+  //       settings: {
+  //         slidesToShow: 1,
+  //       }
+  //     },
+  //   ]
+  // });
+
+  $(".installation-slider-div .slick-carousel").slick({
+    speed: 5000,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    slidesToShow: 8,
+    slidesToScroll: 1,
+    infinite: true,
+    swipeToSlide: true,
+    centerMode: true,
+    focusOnSelect: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 6,
+        }
+      },
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+        }
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 1,
+        }
+      },
+    ],
+  });
+  // own-your-sass-slider
+  $(".own-your-sass-slider").slick({
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  });
+
+  // listing-slider
+  $(".listing-slider").slick({
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 1000,
+    autoplay: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  });
+
+  // managing-staff-slider
+  $(".managing-staff-slider").slick({
+    rows: 3,
+    dots: true,
+    arrows: true,
+    infinite: true,
+    // autoplay: true,
+    autoplaySpeed: 1000,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          rows: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+
+  // portfolio-slider
+  $(".portfolio-slider").slick({
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    centerMode: true,
+    centerPadding: 0,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: false,
+    responsive: [
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 550,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  });
+
+  // products-logo-slider
+  $(".products-logo-slider").slick({
+    infinite: true,
+    speed: 1000,
+    arrows: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    dots: false,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 420,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  });
+  // solution-center-slider
+
+  $('.solution-center-slider').slick({
+    prevArrow: '<button class="slide-arrow slick-prev"> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M7.05935 1.13935V0.107051C7.05935 0.0175768 6.95594 -0.0318345 6.88611 0.0229185L0.831894 4.725C0.780455 4.76477 0.738833 4.81571 0.710202 4.87392C0.68157 4.93212 0.666687 4.99606 0.666687 5.06086C0.666687 5.12566 0.68157 5.1896 0.710202 5.2478C0.738833 5.30601 0.780455 5.35694 0.831894 5.39672L6.88611 10.0988C6.95728 10.1536 7.05935 10.1041 7.05935 10.0147V8.98237C7.05935 8.91694 7.02846 8.85417 6.97743 8.81411L2.14266 5.06153L6.97743 1.30761C7.02846 1.26755 7.05935 1.20478 7.05935 1.13935V1.13935Z" fill="#000"></path></svg></button>',
+    nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none"><path d="M0.940647 9.86065L0.940647 10.8929C0.940647 10.9824 1.04406 11.0318 1.11389 10.9771L7.16811 6.275C7.21954 6.23523 7.26117 6.18429 7.2898 6.12608C7.31843 6.06788 7.33331 6.00394 7.33331 5.93914C7.33331 5.87434 7.31843 5.8104 7.2898 5.7522C7.26117 5.69399 7.21955 5.64306 7.16811 5.60328L1.11389 0.901198C1.04272 0.846445 0.940648 0.895856 0.940648 0.98533L0.940648 2.01763C0.940648 2.08306 0.971536 2.14583 1.02257 2.18589L5.85734 5.93847L1.02257 9.69239C0.971536 9.73245 0.940647 9.79522 0.940647 9.86065Z" fill="#000"></path></svg></button>',
+    dots: false,
+    autoplay: true,
+    arrows: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    centerPadding: "0",
+    cssEase: 'cubic-bezier(0.5,0,0,1)',
+    centerMode: true,
+    loop: true,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          arrows: true,
+          slidesToShow: 2,
+          centerMode: false,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: true,
+          slidesToShow: 2,
+          centerMode: false,
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          arrows: true,
+          slidesToShow: 1,
+          centerMode: false,
+        }
+      },
+    ]
+  });
+  // related-docs-slider
+  $(".related-docs-slider").slick({
+    infinite: true,
+    speed: 1000,
+    arrows: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    dots: false,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 450,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  });
+  // theme review slider
+  $(".theme-review-slider").slick({
+    infinite: true,
+    speed: 1000,
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    dots: false,
+  });
+  $('.client-review-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    // autoplay: true,
+    // autoplaySpeed: 2000,
+    dots: true,
+    centerMode: true,
+    focusOnSelect: true,
+    centerPadding: '0px',
+    infinite: true,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          centerMode: false,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  });
+  /*****  PRODUCT-CENTER-SLIDER  *****/
+  // slider js code
+  $('.bookinggo-addons-slider').slick({
+    autoplaySpeed: 0,
+    speed: 5000,
+    autoplay: true,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: false,
+    dots: false,
+    cssEase: 'linear',
+    pauseOnHover: false,
+    pauseOnFocus: false,
+    variableWidth: true,
+    draggable: false,
+    swipe: false,
+  });
+  $('.product-center-slider').slick({
+    arrows: true,
+    dots: false,
+    autoplay: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 5
+        }
+      },
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 991,
+        settings: {
+          arrows: true,
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: true,
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          arrows: true,
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
+  // product-slider-main
+  var swiper = new Swiper(".product-slider-main", {
+    loop: true,
+    speed: 1000,
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 103,
+      depth: 41,
+      modifier: 3,
+      slideShadows: false,
+      watchSlidesVisibility: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+
+    breakpoints: {
+      769: {
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 110,
+          depth: 25,
+          modifier: 3,
+          slideShadows: false,
+          watchSlidesVisibility: true,
+        },
+      },
+      0: {
+        spaceBetween: 15,
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 25,
+          modifier: 0,
+          slideShadows: false,
+          slidesPerView: "auto",
+          watchSlidesVisibility: true,
+        },
+      },
+    },
+  });
+  // fashion-shopify-slider
+  var swiper = new Swiper(".fashion-shopify-slider", {
+    loop: true,
+    speed: 1000,
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 103,
+      depth: 41,
+      modifier: 3,
+      slideShadows: false,
+      watchSlidesVisibility: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      renderBullet: function (index, className) {
+        return `<span class="outer-dot swiper-pagination-bullet"><span class="inner-dot"></span></span>`;
+      },
+    },
+
+    breakpoints: {
+      769: {
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 110,
+          depth: 25,
+          modifier: 3,
+          slideShadows: false,
+          watchSlidesVisibility: true,
+        },
+      },
+      0: {
+        spaceBetween: 15,
+        coverflowEffect: {
+          rotate: 0,
+          stretch: 0,
+          depth: 25,
+          modifier: 0,
+          slideShadows: false,
+          slidesPerView: "auto",
+          watchSlidesVisibility: true,
+        },
+      },
+    },
+  });
+  $(window).on("load resize orientationchange", function () {
+    var header_height = $("header").outerHeight();
+    $("header")
+      .next(".wrapper")
+      .css("margin-top", header_height + "px");
+  });
+
+});
+
+/** counter js **/
+$('.counting').each(function () {
+  var $this = $(this),
+      countTo = $this.attr('data-count');
+  $({ countNum: $this.text() }).animate({
+      countNum: countTo
+  },
+      {
+          duration: 3000,
+          easing: 'linear',
+          step: function () {
+              $this.text(Math.floor(this.countNum));
+          },
+          complete: function () {
+              $this.text(this.countNum);
+          }
+      });
+});
+
+// function makeTimer() {
+//   var endTime = new Date("04 December 2024 11:30:00 GMT+01:00");
+//   endTime = (Date.parse(endTime) / 1000);
+//   var now = new Date();
+//   now = (Date.parse(now) / 1000);
+//   var timeLeft = endTime - now;
+//   var days = Math.floor(timeLeft / 86400);
+//   var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+//   var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600)) / 60);
+//   var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+//   if (hours < "10") { hours = "0" + hours; }
+//   if (minutes < "10") { minutes = "0" + minutes; }
+//   if (seconds < "10") { seconds = "0" + seconds; }
+//   $(".count-days").html(days);
+//   $(".count-hours").html(hours);
+//   $(".count-minites").html(minutes);
+//   $(".count-seconds").html(seconds);
+// }
+function makeTimer() {
+  // Get the current date and time
+  var now = new Date();
+
+  // Create a Date object for tomorrow at 11:30 AM
+  var endTime = new Date();
+  endTime.setDate(now.getDate() + 1); // Set to tomorrow
+  endTime.setHours(11, 30, 0, 0); // Set time to 11:30:00
+
+  // Convert times to seconds for calculation
+  endTime = Math.floor(endTime.getTime() / 1000);
+  now = Math.floor(now.getTime() / 1000);
+
+  // Calculate the time left
+  var timeLeft = endTime - now;
+  var days = Math.floor(timeLeft / 86400);
+  var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+  var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600)) / 60);
+  var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
+
+  // Format hours, minutes, and seconds to always be two digits
+  if (hours < 10) { hours = "0" + hours; }
+  if (minutes < 10) { minutes = "0" + minutes; }
+  if (seconds < 10) { seconds = "0" + seconds; }
+
+  // Update the HTML with the remaining time
+  $(".count-days").html(days);
+  $(".count-hours").html(hours);
+  $(".count-minites").html(minutes);
+  $(".count-seconds").html(seconds);
+}
+
+// Call the function every second to update the countdown
+setInterval(makeTimer, 100);
+
+
+jQuery(document).ready(function () {
+
+  $('.click-india-popup').on('click', function () {
+    $('.offer-bar-modal').addClass('active');
+  });
+  $('.offer-bar-close').on('click', function () {
+    $('.offer-bar-modal').removeClass('active');  
+  });
+  $('.close-offer-bar').on('click', function () {
+    $('.wd-offer-bar').css('display', 'none');
+  });
+
+  setInterval(function () { makeTimer(); }, 100);
+  
+  $(".accordion-title").click(function () {
+    // Slide toggle the clicked accordion content
+    $(this).parent(".accordion-item").find(".accordion-content").slideToggle();
+
+    // Slide up all previous accordion contents
+    $(this).parent(".accordion-item").prevAll(".accordion-item").find(".accordion-content").slideUp();
+
+    // Slide up all next accordion contents
+    $(this).parent(".accordion-item").nextAll(".accordion-item").find(".accordion-content").slideUp();
+
+    // Remove active class from all accordion titles
+    $('.accordion-title').not(this).removeClass('active');
+
+    // Toggle active class on the clicked accordion title
+    $(this).toggleClass('active');
+  });
+  // Find the first <a> tag under the "Add-Ons" menu item
+  var primarynavigation = $(".primary-navigation .add-on-dash-css > a");
+  var mobilenavigation = $(".mobile-navigation .add-on-dash-css > a");
+
+  // Create the new <span> element
+  var dasknewBadge = $('<span class="notification-badge">New</span>');
+  var mobilenewBadge = $('<span class="notification-badge">New</span>');
+
+  // Append the new <span> element after the first <a> tag
+  primarynavigation.prepend(dasknewBadge);
+  mobilenavigation.prepend(mobilenewBadge);
+  $('#custom-form-workdo').on('submit', function (e) {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Collect form data
+    var formData = {
+        action: 'handle_custom_form', // Action matches the PHP function hook
+        product_id: $('#product_id').val(),
+        comment: $('#message').val(),
+    };
+
+    // Display a loading message (optional)
+
+    // Perform the AJAX request
+    $.ajax({
+        url: '/wp-admin/admin-ajax.php', // URL to admin-ajax.php
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            // Update the form result area with a success message
+            $('#form-result').html('<span style="color: green;">' + response + '</span>');
+             // Reload the window after 3 seconds
+             setTimeout(function () {
+               location.reload(); // Reload the current page
+              }, 3000); // 3000 milliseconds = 3 seconds
+        },
+        error: function () {
+            // Update the form result area with an error message
+            $('#form-result').html('<span style="color: red;">An error occurred. Please try again.</span>');
+        },
+    });
+});
+  jQuery(document).on("click", "#load_using_ajax", function (e) {
+    //alert("working");
+    e.preventDefault();
+    var button = jQuery(this);
+    var category = jQuery("#load-category").val();
+    var offset = parseInt(jQuery("#offset").val());
+
+    jQuery.ajax({
+      url: "/wp-admin/admin-ajax.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        offset: offset,
+        category: category,
+        action: "load_more_posts",
+      },
+      beforeSend: function () {
+        button.append('<i class="fa fa-spinner fa-spin"></i>');
+      },
+      error: function (result) {
+        //console.log(result);
+      },
+
+      success: function (res) {
+        jQuery("#offset").val(offset + 27);
+        jQuery("#load_using_ajax .fa-spinner").remove();
+        $(".filter-right-column .products").append(res.html);
+        if (res.html === "") {
+          console.log("No more products found.");
+          jQuery("#load_using_ajax").addClass("d-none");
+          jQuery("#no-result-found").addClass("no-more-product");
+          jQuery("#no-result-found").text("No more products found.");
+          setTimeout(function () {
+            jQuery("#no-result-found").addClass("d-none");
+          }, 3000); // 3000 milliseconds = 3 seconds
+        }
+      },
+    });
+  });
+  jQuery(document).on("click", "#search_load_ajax", function (e) {
+    e.preventDefault();
+    var button = jQuery(this);
+    var offset = parseInt(jQuery("#offset").val());
+    var posttype = jQuery("#posttype").val();
+    searchTerm = jQuery('.searchbox').val();
+    jQuery.ajax({
+      type: 'POST',
+      dataType: "json",
+      url: "/wp-admin/admin-ajax.php",
+      data: {
+        action: 'custom_search',
+        searchTerm: searchTerm,
+        posttype: posttype,
+        offset: offset
+      },
+      beforeSend: function () {
+        button.append('<i class="fa fa-spinner fa-spin"></i>');
+      },
+      success: function (result) {
+
+        jQuery("#offset").val(offset + 9);
+        jQuery("#search_load_ajax .fa-spinner").remove();
+        jQuery(".search-results .document-card-wrapper").append(result.html);
+        if (result.html == "") {
+          jQuery(".more-blog").addClass("d-none");
+        }
+      },
+    });
+  });
+  jQuery(document).on("click", "#doc_load_ajax", function (e) {
+    //     alert("working");
+    e.preventDefault();
+    var button = jQuery(this);
+    var category = jQuery("#load-doc-category").val();
+    var offset = parseInt(jQuery("#offset").val());
+
+    jQuery.ajax({
+      url: "/wp-admin/admin-ajax.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        offset: offset,
+        category: category,
+        action: "load_more_docs",
+      },
+      beforeSend: function () {
+        button.append('<i class="fa fa-spinner fa-spin"></i>');
+      },
+      success: function (result) {
+        jQuery("#offset").val(offset + 9);
+        jQuery("#doc_load_ajax .fa-spinner").remove();
+        $(".document-card-wrapper").append(result.html);
+        if (result.html == "") {
+          jQuery(".more-blog").addClass("d-none");
+        }
+      },
+    });
+  });
+  jQuery(document).on("click", "#blog_load_ajax", function (e) {
+    //alert("working");
+    e.preventDefault();
+    var button = jQuery(this);
+    var offset = parseInt(jQuery("#offset").val());
+
+    jQuery.ajax({
+      url: "/wp-admin/admin-ajax.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        offset: offset,
+        action: "load_more_blogs",
+      },
+      beforeSend: function () {
+        button.append('<i class="fa fa-spinner fa-spin"></i>');
+      },
+      success: function (result) {
+        jQuery("#offset").val(offset + 8);
+        jQuery("#blog_load_ajax .fa-spinner").remove();
+        $(".page-template-blog-template .document-card-wrapper").append(result.html);
+        if (result.html == "") {
+          jQuery(".more-blog").addClass("d-none");
+        }
+      },
+    });
+  });
+  $(document).on("click", ".add-cart-btn", function (e) {
+    $(document.body).trigger('updated_wc_div');
+  });
+  $(document).on("click", ".add-cart-btn", function (e) {
+    e.preventDefault();
+
+    var product_name = $(this).attr("data-product-name");
+    if (product_name) {
+      var product_id = $(this).attr("data-product-id").split(','); // Split product IDs into an array
+    } else {
+      var product_id = $(this).attr("data-product-id");
+      if (typeof product_id == 'undefined') {
+        var product_id = $('.single_add_to_cart_button').val();
+      }
+    }
+    var page_name = $(this).attr("page-name");
+    var product_qty = $(this).attr("quantity");
+
+
+    var data = {
+      action: "workdo_ajax_popup",
+      product_id: product_id,
+      page_name: page_name,
+      quantity: product_qty,
+      product_name: product_name,
+    };
+    $.ajax({
+      type: "post",
+      url: "/wp-admin/admin-ajax.php",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+        if (response.status == true) {
+          $(".add-cart-popup .cart-popup-inner").html(response.msg);
+          $(".add-cart-popup").addClass("active");
+          $(".popup-overlay").addClass("active");
+          $(document.body).trigger('updated_wc_div');
+        }
+      },
+    });
+    return false;
+  });
+  // vcardgo
+  $(document).on("click", ".vcard-slider-btn", function (e) {
+    e.preventDefault();
+    // Close any previously opened sliders
+    $(".vcardgo-popup").removeClass("active");
+    $(".popup-overlay").addClass("active");
+    $("body").addClass("no-scroll");
+    // Open the clicked slider
+    var $sliderContainer = $(this).closest(".feature-img").next(".vcardgo-popup");
+    $sliderContainer.addClass("active");
+    $sliderContainer.find(".vcardgo-single-slider").slick({
+      autoplay: false,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: true,
+      swipeToSlide: true,
+      arrows: true
+    });
+  });
+  $(document).on("click", ".review-rating-workdo .rating", function (e) {
+    // alert();
+    e.preventDefault();
+    var $this = $(this);
+    var product_id = $(this).closest(".review-rating-workdo").attr("data-id");
+    var data_rate = $(this).closest(".review-rating-workdo").attr("data-rate");
+
+    var data = {
+      action: "workdo_ajax_popup_review",
+      product_id: product_id,
+      data_rate: data_rate,
+    };
+    $.ajax({
+      type: "post",
+      url: "/wp-admin/admin-ajax.php",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+        if (response) {
+          $('.review_rating_workdo').html(response.data);
+          $(".review_rating_workdo").addClass("active");
+          $(".popup-overlay").addClass("active");
+        }
+      },
+    });
+    return false;
+  });
+  $(document).on("click", "#workdo_submit_review", function (e) {
+    // alert();
+    e.preventDefault(); // Prevent the default form submission
+
+    var data = {
+      action: 'workdo_ajax_submit_review', // The AJAX action hook
+      product_id: $('input[name="product_id"]').val(),
+      rating: $('#rating').val(),
+      rating_category: $('#rating_category').val(),
+      comment: $('#comment').val()
+    };
+
+    $.ajax({
+      type: "post",
+      url: "/wp-admin/admin-ajax.php",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+        if (response.data.success == true) {
+          $('.review_rating_workdo .response').html(response.data.message);
+          setTimeout(function () {
+            $(".review_rating_workdo").removeClass("active");
+            $(".popup-overlay").removeClass("active");
+          }, 1000);
+        } else {
+          $('.review_rating_workdo .response').html(response.data.message);
+        }
+      },
+    });
+    return false;
+  });
+  $('.rating .star').click(function () {
+    var selectedValue = $(this).data('value');
+    var $ratingStars = $(this).parent().find('.star'); // Get all stars within the clicked .rating element
+    $ratingStars.removeClass('selected');
+    for (var i = 1; i <= selectedValue; i++) {
+      $ratingStars.filter('[data-value="' + i + '"]').addClass('selected');
+    }
+    $('#selected-rating').text(selectedValue);
+    $('.review-rating-workdo').attr('data-rate', selectedValue);
+  });
+  // $(document).on("click", ".View-Demo-App", function (e) {
+  //   e.preventDefault();
+  //   var $this = $(this);
+  //   var product_id = $(this).attr("data-product-id");
+  //   var data_url = $(this).attr("data-url");
+  //  if (typeof product_id == 'undefined') {
+  //     var product_id = $('.single_add_to_cart_button').val();
+  //   }
+  //   var data = {
+  //     action: "View_Demo_App",
+  //     product_id: product_id,
+  //     data_url: data_url,
+  //     //variation_id: variation_id,
+  //   };
+  //   $.ajax({
+  //     type: "post",
+  //     url: "/wp-admin/admin-ajax.php",
+  //     data: data,
+  //     dataType: "json",
+  //     success: function (response) {
+  //       if (response.status == true) {
+
+  //           window.open(response.msg);
+  //       }
+  //     },
+  //   });
+  //   return false;
+  // });
+  $(document).on("click", ".p-details .count .review", function (e) {
+    // Remove 'active' class from all li elements except #tab-title-reviews
+    $("ul.tabs.wc-tabs li").not("#tab-title-reviews").removeClass('active');
+    $(".woocommerce-Tabs-panel").not("#tab-reviews").css('display', 'none');
+
+    // Add 'active' class to #tab-title-reviews
+    $("#tab-title-reviews").addClass('active');
+    $("#tab-reviews").css('display', 'block');
+  });
+
+  $("ul.feature-tabs li").click(function () {
+    var $this = $(this);
+    var $theTab = $(this).attr("data-tab");
+    if ($this.hasClass("active")) {
+    } else {
+      $this
+        .closest(".feature-tabs-wrapper")
+        .find("ul.tabs li, .feature-tabs-container .feature-tab-content")
+        .removeClass("active");
+      $(
+        '.feature-tabs-container .feature-tab-content[id="' +
+        $theTab +
+        '"], ul.feature-tabs li[data-tab="' +
+        $theTab +
+        "]"
+      ).addClass("active");
+    }
+    $("ul.feature-tabs li").removeClass("active");
+    $(this).addClass("active");
+  });
+
+
+  $(document).on("click", ".get_wasabi_url", function (e) {
+    // alert();
+    //console.log(woocommerce_params);
+    e.preventDefault();
+    var $this = $(this);
+    var product_id = $(this).attr("data-id");
+    var data_sub_type = $(this).attr("data-sub-type");
+
+    var data = {
+      action: "workdo_final_zip",
+      product_id: product_id,
+      data_sub_type: data_sub_type,
+      //product_sku: '',
+      //variation_id: variation_id,
+    };
+    $.ajax({
+      type: "post",
+      url: "/wp-admin/admin-ajax.php",
+      data: data,
+      dataType: "html",
+      success: function (result) {
+        var objJSON = JSON.parse(result);
+        location.href = objJSON.msg;
+        //window.open(objJSON.msg);
+        // console.log(response.msg);
+        //  window.open(response.msg, '_blank');
+
+      },
+    });
+    return false;
+  });
+  $(document).on("click", "ul.pages-tabs li", function (e) {
+    var $this = $(this);
+    var $theTab = $(this).attr("data-tab");
+    if ($this.hasClass("active")) {
+    } else {
+      $this
+        .closest(".tabs-wrapper")
+        .find("ul.pages-tabs li, .tabs-container .tab-content")
+        .removeClass("active");
+      $(
+        '.tabs-container .tab-content[id="' +
+        $theTab +
+        '"], ul.pages-tabs li[data-tab="' +
+        $theTab +
+        "]"
+      ).addClass("active");
+    }
+    $('.pages-category-slider .slick-carousel').slick('refresh');
+    $(this).addClass("active");
+  });
+  $(document).on("click", "ul.wc-tabs li", function (e) {
+    $('.slick-carousel').slick('refresh');
+    $('.theme-review-slider').slick('refresh');
+  });
+  //video-play 
+  $('.play-video').on('click', function () {
+    if ($(this).attr('data-click') == 1) {
+      $(this).attr('data-click', 0)
+      $('#img-video')[0].pause();
+      $(".play-video").css("opacity", "1");
+    } else {
+      $(this).attr('data-click', 1)
+      $('#img-video')[0].play();
+      $(".play-video").css("opacity", "1");
+      $(".play-video").css("opacity", "0");
+    }
+  });
+  var scrollPosition = $(window).scrollTop();
+  $("#scrollButton_main").click(function (e) {
+    e.preventDefault();
+    $("html, body").animate({ scrollTop: "+=600px" }, 500);
+  });
+  $("li.main-menu.theme-color a").click(function (e) {
+    var dataScrollValue = $(this).attr("data-scroll");
+    $(".Documentation-rightbar").find(".main-top-doc-pd").removeClass("active");
+    $(".Documentation-rightbar").find('#' + dataScrollValue).addClass("active");
+  });
+
+  $(window).scroll(function () {
+    var currentScroll = $(window).scrollTop();
+    if (currentScroll < scrollPosition) {
+      $(".Documentation-rightbar").find(".main-top-doc-pd").removeClass("active");
+    }
+    scrollPosition = currentScroll;
+  });
+
+
+
+  var url = (window.location != window.parent.location) ? document.referrer : document.location;
+  if (url == 'https://preview.codecanyon.net/' || url == 'https://preview.themeforest.net/') {
+    $(document).ready(function () {
+      $("header .main-navigationbar a").attr('target', '_blank');
+    });
+  }
+
+});
+// $(document).ready(function () {
+//   // obtain plugin
+//   if ($("body").hasClass("single-laravel-product") || $("body").hasClass("page-id-3768") || $("body").hasClass("page-id-3644")) {
+
+//   } else {
+//     var cc = initCookieConsent();
+
+//     // run plugin with your configuration
+//     cc.run({
+//       gui_options: {
+//         consent_modal: {
+//           layout: 'cloud',               // box/cloud/bar
+//           position: 'bottom center',     // bottom/middle/top + left/right/center
+//           transition: 'slide',           // zoom/slide
+//           swap_buttons: false            // enable to invert buttons
+//         },
+//         settings_modal: {
+//           layout: 'box',                 // box/bar
+//           // position: 'left',           // left/right
+//           transition: 'slide'            // zoom/slide
+//         }
+//       },
+//       current_lang: 'en',
+//       autoclear_cookies: true,                   // default: false
+//       page_scripts: true,                        // default: false
+
+//       onFirstAction: function (user_preferences, cookie) {
+//         // callback triggered only once
+//       },
+
+//       onAccept: function (cookie) {
+//         // ...
+//       },
+
+//       onChange: function (cookie, changed_preferences) {
+//         // ...
+//       },
+
+//       languages: {
+//         'en': {
+//           consent_modal: {
+//             title: 'We use cookies!',
+//             description: 'Hi, this website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only after consent. <button type="button" data-cc="c-settings" class="cc-link">Let me choose</button>',
+//             layout: 'cloud',               // box/cloud/bar
+//             position: 'bottom center',     // bottom/middle/top + left/right/center
+//             transition: 'slide',           // zoom/slide
+//             swap_buttons: false,
+//             primary_btn: {
+//               text: 'Accept all',
+//               role: 'accept_all'              // 'accept_selected' or 'accept_all'
+//             },
+//             secondary_btn: {
+//               text: 'Reject all',
+//               role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+//             }
+//           },
+//           settings_modal: {
+//             title: 'Cookie preferences',
+//             save_settings_btn: 'Save settings',
+//             accept_all_btn: 'Accept all',
+//             reject_all_btn: 'Reject all',
+//             close_btn_label: 'Close',
+//             cookie_table_headers: [
+//               { col1: 'Name' },
+//               { col2: 'Domain' },
+//               { col3: 'Expiration' },
+//               { col4: 'Description' }
+//             ],
+//             blocks: [
+//               {
+//                 title: 'Cookie usage Ã°Å¸â€œÂ¢',
+//                 description: 'I use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want. For more details relative to cookies and other sensitive data, please read the full <a href="/privacy-policy/" class="cc-link">privacy policy</a>.'
+//               }, {
+//                 title: 'Strictly necessary cookies',
+//                 description: 'These cookies are essential for the proper functioning of my website. Without these cookies, the website would not work properly',
+//                 toggle: {
+//                   value: 'necessary',
+//                   enabled: true,
+//                   readonly: true          // cookie categories with readonly=true are all treated as "necessary cookies"
+//                 }
+//               }, {
+//                 title: 'Performance and Analytics cookies',
+//                 description: 'These cookies allow the website to remember the choices you have made in the past',
+//                 toggle: {
+//                   value: 'analytics',     // your cookie category
+//                   enabled: false,
+//                   readonly: false
+//                 },
+//                 cookie_table: [             // list of all expected cookies
+//                   {
+//                     col1: '^_ga',       // match all cookies starting with "_ga"
+//                     col2: 'google.com',
+//                     col3: '2 years',
+//                     col4: 'description ...',
+//                     is_regex: true
+//                   },
+//                   {
+//                     col1: '_gid',
+//                     col2: 'google.com',
+//                     col3: '1 day',
+//                     col4: 'description ...',
+//                   }
+//                 ]
+//               }, {
+//                 title: 'Advertisement and Targeting cookies',
+//                 description: 'These cookies collect information about how you use the website, which pages you visited and which links you clicked on. All of the data is anonymized and cannot be used to identify you',
+//                 toggle: {
+//                   value: 'targeting',
+//                   enabled: false,
+//                   readonly: false
+//                 }
+//               }, {
+//                 title: 'More information',
+//                 description: 'For any queries in relation to our policy on cookies and your choices, please <a class="cc-link" href="/contact-us/">contact us</a>.',
+//               }
+//             ]
+//           }
+//         }
+//       }
+//     });
+//   }
+// });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const lightbox = GLightbox({
+    selector: ".screenshot-inner",
+  });
+});
+
+var jsonData = {
+  "WorkDo Dash": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "E-commerceGo": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "admin@example.com", "password": "1234" },
+  ],
+  "ERPGo": [
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "accountant@example.com", "password": "1234" },
+  ],
+  "ERPGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "accountant@example.com", "password": "1234" },
+  ],
+  "StoreGo": [
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "StoreGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "vCardGo": [
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "vCardGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "WhatsStore": [
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "WhatsStore SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "LMSGo": [
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "LMSGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "Taskly": [
+    { "Email": "admin@example.com", "password": "1234" },
+  ],
+  "Taskly SaaS": [
+    { "Email": "admin@example.com", "password": "1234" },
+  ],
+  "AccountGo": [
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "accountant@example.com", "password": "1234" },
+  ],
+  "AccountGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "accountant@example.com", "password": "1234" },
+  ],
+  "TicketGo": [
+    { "Email": "admin@example.com", "password": "1234" },
+    { "Email": "agent@example.com", "password": "1234" },
+  ],
+  "TicketGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "admin@example.com", "password": "1234" },
+    { "Email": "agent@example.com", "password": "1234" },
+  ],
+  "AdvocateGo": [
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "AdvocateGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "WorkGo": [
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "user@example.com", "password": "1234" },
+  ],
+  "WorkGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "user@example.com", "password": "1234" },
+  ],
+  "HRMGo": [
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "hr@example.com", "password": "1234" },
+  ],
+  "HRMGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "hr@example.com", "password": "1234" },
+  ],
+  "LeadGo": [
+    { "Email": "admin@example.com", "password": "1234" },
+    { "Email": "user@example.com", "password": "1234" },
+  ],
+  "LeadGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "PosGo": [
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "PosGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "TaskGo": [
+    { "Email": "admin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "TaskGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "CRMGo": [
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "CRMGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "ClockGo": [
+    { "Email": "admin@example.com", "password": "1234" },
+  ],
+  "ClockGo SaaS": [
+    { "Email": "admin@example.com", "password": "1234" },
+  ],
+  "Salesy": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "Salesy SaaS": [
+    { "Email": "owner@example.com", "password": "1234" },
+  ],
+  "RotaGo": [
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "manager@example.com", "password": "1234" },
+  ],
+  "RotaGo SaaS": [
+    { "Email": "owner@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+    { "Email": "manager@example.com", "password": "1234" },
+  ],
+  "CMMSGo": [
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "CMMSGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "AnalyticsGo": [
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "AnalyticsGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  "AIGo SaaS": [
+    { "Email": "superadmin@example.com", "password": "1234" },
+    { "Email": "company@example.com", "password": "1234" },
+  ],
+  // Add JSON data for other options here
+};
+
+// Function to update the table based on the selected dropdown option
+function setupdocupdateForm() {
+  var selectElement = document.getElementById("product-name");
+  var selectedValue = selectElement.value;
+  var table = document.querySelector(".setup-login-details");
+  var tableBody = document.getElementById("data-table-body");
+
+  if (selectedValue in jsonData) {
+    table.classList.remove("d-none");
+    tableBody.innerHTML = ""; // Clear the table body
+    if (Array.isArray(jsonData[selectedValue])) {
+      // If it's an array, create a row for each set of data
+      jsonData[selectedValue].forEach(function (item, index) {
+        var row = tableBody.insertRow(index);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+
+        cell1.innerHTML = item.Email;
+        cell2.innerHTML = item.password;
+      });
+    } else {
+      // If it's not an array, create a single row
+      var row = tableBody.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+
+      cell1.innerHTML = jsonData[selectedValue].Email;
+      cell2.innerHTML = jsonData[selectedValue].password;
+    }
+  } else {
+    table.classList.add("d-none"); // Add the d-none class
+  }
+}

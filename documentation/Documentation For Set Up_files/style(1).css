@@ -1,0 +1,419 @@
+/* /*
+Theme Name:  Storefront Child
+Template: 	 storefront
+Theme URI:	 https://wordpress.org/themes/storefront/
+Author:		 Rajodiya Infotech
+Author URI:	 https://rajodiya.com/
+Version:	 1.0.0
+License:	 GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: storefront-child
+*/
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.bg-dark h1,
+.bg-dark h2,
+.bg-dark h3,
+.bg-dark h4,
+.bg-dark h5,
+.bg-dark h6 {
+    color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+    .col-full {
+        max-width: 1254px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 2.617924em;
+        box-sizing: border-box;
+    }
+}
+
+.custome_btn {
+    background: #F4B41A;
+    border-radius: 39.2924px;
+    display: inline-block;
+    line-height: 100%;
+    color: #002332;
+    font-weight: 800;
+    font-size: 12.09px;
+    padding: 13px 48px;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+
+.Support_link {
+    font-weight: 600;
+    font-size: 12.09px;
+    font-family: 'Lato', sans-serif;
+    color: #FFFFFF;
+    position: relative;
+    margin-left: 31px;
+    display: inline-block;
+    padding-left: 27px;
+}
+
+.main-navigationbar {
+    display: flex;
+    align-items: center;
+}
+
+.site-branding {
+    max-width: 280px;
+    margin-bottom: 0px !important;
+}
+
+header.site-header a {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    position: relative;
+    line-height: 1;
+    z-index: 1;
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px 10px 0 0;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    -webkit-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+}
+
+.no-wc-breadcrumb .site-header {
+    margin-bottom: 0px !important
+}
+
+/* //// mobile apps solutions start //// */
+/*  */
+.mobile-apps-wrapper .bg-dark h2,
+.mobile-apps-wrapper .bg-dark h3,
+.mobile-home-section h2{
+    color: #FFF;
+}
+
+.mobile-home-section {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 120px 0 80px;
+    background-color: #022332;
+}
+
+.apk-ios-card-section .innner-card {
+    background: #F5F5F5;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+.apk-ios-card-section .innner-card h4 {
+    background: #002232;
+    color: #6FD943;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 7px;
+    margin: 0;
+}
+
+
+.apk-ios-card-section .innner-card h4 {
+    background: #002232;
+    color: #6FD943;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 7px;
+    margin: 0;
+}
+
+.apk-ios-card-section .innner-card.ios-card h4 {
+    color: #002232;
+    background: #6FD943;
+}
+
+
+.apk-ios-card-section .innner-card .icon {
+    background: #6FD943;
+    display: inline-block;
+    margin: 0;
+    padding: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 20px auto 10px;
+    border: 2px solid rgba(111, 217, 67, 0.5);
+}
+
+.apk-ios-card-section .innner-card .icon i {
+    font-size: 16px;
+    color: #ffffffc7;
+}
+
+.decr-card {
+    position: relative;
+    background: #F5F5F5;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    padding: 30px 30px 30px 80px;
+    margin-top: 30px;
+}
+
+.decr-card .icon-div {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    border: 5px solid #FFFFFF;
+}
+
+.apk-ios-card-section .decr-card .icon-div {
+    box-shadow: none;
+}
+
+.service-card-section {
+    padding-bottom: 40px;
+}
+
+.service-card-section.bg-gradient::before {
+    height: 42%;
+}
+
+.portfolio-slider .portfolio-inner {
+    width: 100%;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid var(--theme-color);
+}
+
+.portfolio-slider .portfolio-inner .img-div {
+    position: relative;
+    padding-top: 175%;
+    margin: 0;
+}
+
+.portfolio-slider .portfolio-inner .img-div img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.why-workdo-section .img-div {
+    margin-bottom: 30px;
+}
+
+.rotated-text {
+    margin-left: 40px;
+    margin-bottom: 10px;
+}
+
+.rotated-text span {
+    font-family: 'Heart Warming';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23.4036px;
+    color: #FFFFFF;
+    -webkit-transform: rotate(-17.18deg);
+    -ms-transform: rotate(-17.18deg);
+    transform: rotate(-17.18deg);
+    line-height: 1;
+    margin-top: -35px;
+    margin-left: 10px;
+}
+
+.rotated-text i {
+    transform: rotate(160deg);
+    font-size: 20px;
+    color: var(--theme-color);
+}
+
+.contact-inner-col h3 {
+    margin-bottom: 30px;
+}
+
+.contact-section .left-col .section-title {
+    padding-top: 50px;
+}
+span.onsale{display:none}
+/* //// mobile apps solutions end //// */
+
+.bg-dark h2,
+.bg-dark h3 {
+    color: #FFF;
+}
+
+
+@media (min-width: 768px) {
+   
+    .footer-widgets.col-4 .block,
+    .footer-col {
+        width: 16.6%;
+        padding-right: 37px;
+        float: left;
+    }
+
+    .footer_content {
+        display: flex;
+    }
+
+    .right-sidebar .widget-area {
+        width: 100% !important;
+        float: unset !important;
+        margin-right: unset !important;
+    }
+
+    .main-navigation ul.menu>li.menu-item-has-children>a::after,
+    .main-navigation ul.menu>li.page_item_has_children>a::after,
+    .main-navigation ul.nav-menu>li.menu-item-has-children>a::after,
+    .main-navigation ul.nav-menu>li.page_item_has_children>a::after {
+        border-bottom: 2px solid var(--theme-color);
+        border-right: 2px solid var(--theme-color);
+        content: '';
+        height: 8px;
+        width: 8px;
+        margin-top: -5px;
+        pointer-events: none;
+        -webkit-transform-origin: 66% 66%;
+        -ms-transform-origin: 66% 66%;
+        transform-origin: 66% 66%;
+        -webkit-transform:translateY(-2px) rotate(45deg);
+        -ms-transform: translateY(-2px) rotate(45deg);
+        transform:translateY(-2px) rotate(45deg);
+        -webkit-transition: all ease-in-out 0.5s;
+        -moz-transition: all ease-in-out 0.5s;
+        -ms-transition: all ease-in-out 0.5s;
+        -o-transition: all ease-in-out 0.5s;
+        transition: all ease-in-out 0.5s;
+    }
+
+    .main-navigation ul.menu>li.menu-item-has-children:hover>a::after,
+    .main-navigation ul.menu>li.page_item_has_children:hover>a::after,
+    .main-navigation ul.nav-menu>li.menu-item-has-children :hover>a::after,
+    .main-navigation ul.nav-menu>li.page_item_has_children:hover>a::after {
+        transform:translateY(-3px) rotate(228deg);
+        -webkit-transform:translateY(-3px) rotate(228deg);
+        -moz-transform:translateY(-3px) rotate(228deg);
+        -ms-transform:translateY(-3px) rotate(228deg);
+        -o-transform:translateY(-3px) rotate(228deg);
+
+    }
+
+    .main-navigation ul.menu>li:hover a,
+    .main-navigation ul.menu>li:hover .sub-menu {
+        background: var(--white);
+        color: var(--second-color);
+
+    }
+
+    .main-navigation ul.menu ul.sub-menu,
+    .main-navigation ul.nav-menu ul.children {
+        background-color: var(--white);
+        border-radius: 0 0px 10px 10px;
+        -webkit-border-radius: 0 0px 10px 10px;
+        -moz-border-radius: 0 0px 10px 10px;
+        -ms-border-radius: 0 0px 10px 10px;
+        -o-border-radius: 0 0px 10px 10px;
+}
+
+    .main-navigation ul.menu ul.sub-menu a,
+    .main-navigation ul.nav-menu ul.children a {
+        color: var(--second-color)
+    }
+
+    .site-footer .footer-row-top::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -36px;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 591px;
+        height: 1px;
+        background: #E6E6E6;
+    }
+}
+strong.product-quantity {
+    display: none;
+}
+
+/* PRASHANT */
+.page-template-mobile-apps-solutions .features-card-section .features-card h4,.page-template-mobile-apps-solutions .review-section .review-inner h4,
+.page-template-ecommerce_solutions .features-card-section .features-card h4,.page-template-ecommerce_solutions .review-section .review-inner h4,
+.page-template-saas_solutions .features-card-section .features-card h4,.page-template-saas_solutions .review-section .review-inner h4,
+.page-template-web_solutions .features-card-section .features-card h4,.page-template-web_solutions .review-section .review-inner h4{
+    color: #002332;
+}
+.page-template-mobile-apps-solutions .get-app-banner-section .section-title h3{
+    color: #fff;
+}
+
+
+.product-content-top .title h4,.theme-details-top .product_title{text-transform: initial;}
+
+h3 span.text-inherit{
+    text-transform: none !important;
+}
+
+
+.documents-details-inner ul{
+	margin: auto;
+	padding: revert;
+}
+.documents-details-inner ul li{
+	list-style-type: disc;
+	margin-bottom: 10px;
+}
+.single-documents .main-title h1{
+	text-transform: none !important;
+}
+
+.wc-block-components-notice-banner.is-success,.wc-block-components-notice-banner.is-info{
+	    color: #000;
+    font-size: 16px;
+}
+.wc-block-components-notice-banner.is-success span{
+	color:var(--third-color);
+	font-weight: 800;
+}
+
+.single-product .product_cat-theme-addon .btn,.single-product .product_cat-theme-addon .theme-details-section .theme-details-inner .btn-wrapper .btn{
+	text-transform:unset !important;
+}
+
+.sels-info-iteam .sels-iteam-inner p{
+	color:var(--dark-green);
+}
+.single-post .money-back-btn.btn-wrapper{
+	    justify-content: center;
+}
+}

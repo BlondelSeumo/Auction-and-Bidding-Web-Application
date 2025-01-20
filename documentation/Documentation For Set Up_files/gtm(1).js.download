@@ -1,0 +1,443 @@
+// jQuery(document).ready(function () {
+//  var from_where =  getCookie("from_where");
+//  console.log("before:" + from_where);
+
+//   if(from_where == null){
+//     from_where = pagename;
+//     setCookie("from_where", from_where, 7);
+//   }
+//   console.log("after: "+ from_where);
+// });
+jQuery(document).ready(function () {
+
+  // Example: Set the item_list_name cookie when the page loads
+
+  $(".gm-add-to-cart").click(function (e) {
+    var id = $(this).attr("data-product-id");
+    var name = $(this).attr("gm-product-name");
+    var price = $(this).attr("gm-product-price");
+    var category = $(this).attr("gm-product-category");
+    var item_list_name = $(this).attr("item-list-name");
+
+    // Get the item_list_name cookie
+    var cookiePageName = getCookie("item_list_name");
+
+    // Use the cookie value for pagename
+    if (cookiePageName && pagename != 'Home Page') {
+      item_list_name = cookiePageName;
+    } else {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+    }
+    if (["Shopify", "WordPress", "Opencart"].includes(category)) {
+      item_category2 = "Theme";
+    } else {
+      item_category2 = "Addon";
+    }
+    //console.log(id,name,price,category,pagename);
+    dataLayer.push({ ecommerce: null });  // clear the previous ecommerce object.
+    dataLayer.push({
+      event: "add_to_cart",
+      ecommerce: {
+        currency: "USD",
+        items: [
+          {
+            item_name: name, // name or id is required.
+            item_id: parseFloat(id), // item sku 
+            affiliation: "Workdo boosting productivity",// store name.
+            coupon: "",// in case a coupon is applied, we have to pass the coupon name.
+            currency: "USD",  // currency of item
+            price: parseFloat(price), // price of the item.
+            item_brand: "WorkDo", //brand name 
+            item_category: category, //category name
+            item_category2: item_category2,
+            item_list_name: item_list_name,//e.g. filter results, Discover More Add-Ons ,category page etc.
+            quantity: 1// quantity of the item
+          }
+        ]
+      }
+    });
+    // console.log(dataLayer);
+  });
+
+  $(".gm-preview-event").click(function (e) {
+    var id = parseFloat($(this).attr("data-product-id"));
+    var name = $(this).attr("gm-product-name");
+    
+    var price = parseFloat($(this).attr("gm-product-price"));
+    var category = $(this).attr("gm-product-category");
+    var item_list_name = $(this).attr("item-list-name");
+    // Get the item_list_name cookie
+    var cookiePageName = getCookie("item_list_name");
+    var cookie_category = getCookie("cookie_category");
+    // Use the cookie value for pagename
+    if (pagename == 'Category page' ) {
+      if( cookie_category == category){
+        var item_list_name = getCookie("item_list_name");
+      }
+    }
+   else if (cookiePageName && pagename == 'Category page') {
+      item_list_name = cookiePageName;
+    }else if ((cookiePageName && item_list_name == 'Related Product') || (cookiePageName && item_list_name == 'Discover More Add-Ons') ) {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+    }else if(cookiePageName && (pagename !== 'Home Page' && pagename !== 'Category page')) {
+      var item_list_name = $(this).attr("item-list-name");
+      var cookiePageName = getCookie("item_list_name");
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+      item_list_name = cookiePageName;
+    } else {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+      var item_list_name = getCookie("item_list_name");
+    }
+
+    if (["Shopify", "WordPress", "Opencart"].includes(category)) {
+      item_category2 = "Theme";
+    } else {
+      item_category2 = "Addon";
+    }
+    dataLayer.push({ ecommerce: null });  // clear the previous ecommerce object.
+    dataLayer.push({
+      event: "select_item",
+      ecommerce: {
+        items: [
+          {
+            item_name: name, // name or id is required.
+            item_id: id, // item sku 
+            affiliation: "Workdo boosting productivity",// store name.
+            coupon: "",// in case a coupon is applied, we have to pass the coupon name.
+            currency: "USD",  // currency of item
+            price: price, // price of the item.
+            item_brand: "WorkDo", //brand name 
+            item_category: category, //category name
+            item_category2: item_category2,// The category to which the product belongs to
+            item_list_name: item_list_name,//e.g. filter results, Discover More Add-Ons ,category page etc.
+            quantity: 1// quantity of the item
+          }
+        ]
+      }
+    });
+
+    // console.log(dataLayer);
+
+  });
+
+  $(".gm-select-item").click(function (e) {
+    var id = $(this).attr("item_id");
+    var name = $(this).attr("item_name");
+    var price = $(this).attr("price");
+    var category = $(this).attr("item_category");
+    var item_category2 = $(this).attr("item_category2");
+    var creative_name = $(this).attr("creative_name");
+    var creative_slot = $(this).attr("creative_slot");
+    var promotion_id = $(this).attr("promotion_id");
+    var promotion_name = $(this).attr("promotion_name");
+
+    var item_list_name = $(this).attr("item_list_name");
+    var cookiePageName = getCookie("item_list_name");
+
+    // Use the cookie value for pagename
+    if (cookiePageName && (pagename !== 'Home Page' && pagename !== 'landing page')) {
+      item_list_name = cookiePageName;
+    } else {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+    }
+
+
+    dataLayer.push({ ecommerce: null });  // clear the previous ecommerce object.
+    dataLayer.push({
+      event: "select_item",
+      ecommerce: {
+       
+        items: [
+          {
+            item_name: name, // name or id is required.
+            item_id: parseFloat(id), // item sku 
+            affiliation: "Workdo boosting productivity",// store name.
+            coupon: "",// in case a coupon is applied, we have to pass the coupon name.
+            currency: "USD",  // currency of item
+            price: parseFloat(price), // price of the item.
+            item_brand: "WorkDo", //brand name 
+            item_category: category, //category name
+            item_category2: item_category2,// The category to which the product belongs to
+            item_list_name: promotion_name,//e.g. filter results, Discover More Add-Ons ,category page etc.
+            quantity: 1// quantity of the item
+          }
+        ]
+      }
+    });
+    // console.log(dataLayer);
+
+  });
+
+  $(".gm-preview-event-title").click(function (e) {
+    var id = parseFloat($(this).attr("data-product-id"));
+    var name = $(this).attr("gm-product-name");
+    var price = parseFloat($(this).attr("gm-product-price"));
+    var category = $(this).attr("gm-product-category");
+    var item_list_name = $(this).attr("item-list-name");
+    // var pagename = $(this).attr("page-name");
+
+    // Get the item_list_name cookie
+    var cookiePageName = getCookie("item_list_name");
+
+    if (cookiePageName && pagename == 'Category page') {
+      item_list_name = cookiePageName;
+    }else if ((cookiePageName && item_list_name == 'Related Product') || (cookiePageName && item_list_name == 'Discover More Add-Ons') ) {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+    }else if(pagename == 'Home Page'){
+      deleteCookie("item_list_name");
+      deleteCookie("cookie_category");
+      var item_list_name = $(this).attr("item-list-name");
+      setCookie("item_list_name", item_list_name, 30);
+      // console.log(item_list_name);
+
+    }else if(cookiePageName && (pagename !== 'Home Page' || pagename !== 'Category page')) {
+      // console.log('if else condition');
+
+      var item_list_name = $(this).attr("item-list-name");
+      var cookiePageName = getCookie("item_list_name");
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+      item_list_name = cookiePageName;
+      // console.log(item_list_name);
+
+    } else {
+      console.log('else condition');
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+      var item_list_name = getCookie("item_list_name");
+      // console.log(item_list_name);
+
+    }
+
+    if (["Shopify", "WordPress", "Opencart"].includes(category)) {
+      item_category2 = "Theme";
+    } else {
+      item_category2 = "Addon";
+    }
+    dataLayer.push({ ecommerce: null });  // clear the previous ecommerce object.
+    dataLayer.push({
+      event: "select_item",
+      ecommerce: {
+        items: [
+          {
+            item_name: name, // name or id is required.
+            item_id: id, // item sku 
+            affiliation: "Workdo boosting productivity", // store name.
+            coupon: "", // in case a coupon is applied, we have to pass the coupon name.
+            currency: "USD",  // currency of item
+            price: price, // price of the item.
+            item_brand: "WorkDo", //brand name 
+            item_category: category, //category name
+            item_category2: item_category2, // The category to which the product belongs to
+            item_list_name: item_list_name, //e.g. filter results, Discover More Add-Ons ,category page etc.
+            quantity: 1 // quantity of the item
+          }
+        ]
+      }
+    });
+    // console.log(dataLayer);
+
+  });
+
+  // Log the dataLayer for debugging
+
+  $(".gm-remove-to-cart").click(function (e) {
+    var id = $(this).attr("data-product-id");
+    var name = $(this).attr("gm-product-name");
+    var price = $(this).attr("gm-produt-price");
+    var category = $(this).attr("gm-product-category");
+
+    var item_list_name = $(this).attr("item-list-name");
+
+    // Get the item_list_name cookie
+    var cookiePageName = getCookie("item_list_name");
+
+    // Use the cookie value for pagename
+    if (cookiePageName) {
+      item_list_name = cookiePageName;
+    } else {
+
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+    }
+    if (["Shopify", "WordPress", "Opencart"].includes(category)) {
+      item_category2 = "Theme";
+    } else {
+      item_category2 = "Addon";
+    }
+
+    dataLayer.push({ ecommerce: null });  // clear the previous ecommerce object.
+    dataLayer.push({
+      event: "remove_from_cart",
+      ecommerce: {
+        currency: "USD",
+        items: [
+          {
+            item_name: name, // name or id is required.
+            item_id: parseFloat(id), // item sku 
+            affiliation: "Workdo boosting productivity",// store name.
+            coupon: "",// in case a coupon is applied, we have to pass the coupon name.
+            currency: "USD",  // currency of item
+            price: parseFloat(price), // price of the item.
+            item_brand: "WorkDo", //brand name 
+            item_category: category, //category name
+            item_category2: item_category2,// The category to which the product belongs to
+            item_list_name: item_list_name,//e.g. filter results, Discover More Add-Ons ,category page etc.
+            quantity: 1// quantity of the item
+          }
+        ]
+      }
+    });
+    // console.log(dataLayer);
+
+  });
+
+  if ($('.gm-promotion-banner').length > 0) {
+    // Initialize the item list
+    let items = [];
+    var item_list_name = $(this).attr("item_list_name");
+    let gm_product_category = $(this).attr('gm-product-category');
+    var cookiePageName = getCookie("item_list_name");
+    var workdo_category = getCookie("workdo_category");
+
+    // Use the cookie value for pagename
+    if (cookiePageName && (pagename !== 'Home Page' || pagename !== 'landing page')) {
+      item_list_name = cookiePageName;
+    } else {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+    }
+    
+    $('.gm-promotion-banner').each(function () {
+    // Set the dataLayer
+    var item_list_name = $(this).attr("item_list_name");
+    
+    dataLayer.push({ ecommerce: null });  
+    dataLayer.push({
+      event: "view_promotion",
+      ecommerce: {
+        creative_name: $(this).attr('creative_name'),
+        creative_slot: $(this).attr('creative_slot'),
+        promotion_id: $(this).attr('promotion_id'),
+        promotion_name: $(this).attr('promotion_name'),
+        items: [{
+          item_name: $(this).attr('item_name'),
+          item_id: parseFloat($(this).attr('item_id')),
+          affiliation: "Workdo boosting productivity",
+          coupon: "",
+          currency: "USD",
+          price: parseFloat($(this).attr('price')),
+          item_brand: "WorkDo",
+          item_category: $(this).attr('item_category'),
+          item_category2: $(this).attr('item_category2'),
+          item_list_name: item_list_name,
+          quantity: 1
+        }]
+      }
+    });
+      
+
+    });
+  }
+  // function getValueForKey(key) {
+  //   // Variable to hold the value if found
+  //   var foundValue = null;
+  //   var creative_name_array = [
+  //     { key: 'Optimized Business Themes for Business Setup', value: 'Wedding Planning' },
+  //     { key: 'BookingGo New Released Add-ons', value: 'BookingGo Landing Page' },
+  //     { key: 'BookingGo Landing Page', value: 'BookingGo Mobile Apps Banner' }
+      
+  //   ];
+  //   // Loop through the array to find the key
+  //   $.each(creative_name_array, function(index, item) {
+  //       if (item.key === key) {
+  //           foundValue = item.value; // Assign the value if key matches
+  //           return false; // Exit the loop early since key is found
+  //       }
+  //   });
+
+  //   // Check if key was found
+  //   if (foundValue !== null) {
+  //       return foundValue; // Return the value if key exists
+  //   } else {
+  //       return '0'; // Return message if key does not exist
+  //   }
+  // }
+  
+  $(".bookinggo-select, .gm-promotion-banner-title").click(function (e) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    var id = $(this).attr("item_id");
+    var name = $(this).attr("item_name");
+    var price = $(this).attr("price");
+    var category = $(this).attr("item_category");
+    var item_category2 = $(this).attr("item_category2");
+    var creative_name = $(this).attr("creative_name");
+    var creative_slot = $(this).attr("creative_slot");
+    var promotion_id = $(this).attr("promotion_id");
+    var promotion_name = $(this).attr("promotion_name");
+
+    var item_list_name = $(this).attr("item_list_name");
+    var cookiePageName = getCookie("item_list_name");
+    var cookie_category = getCookie("cookie_category");
+    setCookie("promotion_name", promotion_name, 30);
+    setCookie("page_name_", pagename, 30);
+//
+
+
+
+// var keyToFind = creative_name;
+// var is_found_or_not = getValueForKey(keyToFind);
+
+// if(is_found_or_not!='0'){
+//   console.log('New Name' + is_found_or_not);
+// }
+
+//
+    if(cookiePageName && (pagename !== 'Home Page' && pagename !== 'landing page')) {
+      deleteCookie("item_list_name");
+      setCookie("item_list_name", item_list_name, 30);
+       var cookiePageName = getCookie("item_list_name");
+      promotion_name = cookiePageName;
+    }else {
+      // deleteCookie("cookie_category")
+      // deleteCookie("item_list_name");
+      setCookie("item_list_name", promotion_name, 30);
+      setCookie("cookie_category", category, 30);
+    }
+
+
+    dataLayer.push({ ecommerce: null });  // clear the previous ecommerce object.
+    dataLayer.push({
+      event: "select_promotion",
+      ecommerce: {
+        creative_name: creative_name,// section of the banner 
+        creative_slot: creative_slot,//position of the banner
+        promotion_id: promotion_id,//id of the banner
+        promotion_name: promotion_name,//name of the banner
+        items: [
+          {
+            item_name: name, // name or id is required.
+            item_id: parseFloat(id), // item sku 
+            affiliation: "Workdo boosting productivity",// store name.
+            coupon: "",// in case a coupon is applied, we have to pass the coupon name.
+            currency: "USD",  // currency of item
+            price: parseFloat(price), // price of the item.
+            item_brand: "WorkDo", //brand name 
+            item_category: category, //category name
+            item_category2: item_category2,// The category to which the product belongs to
+            item_list_name: promotion_name,//e.g. filter results, Discover More Add-Ons ,category page etc.
+            quantity: 1// quantity of the item
+          }
+        ]
+      }
+    });
+    // console.log(dataLayer);
+
+  });
+
+});
